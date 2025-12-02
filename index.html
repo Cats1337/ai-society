@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI, Age, and the UK Online Safety Act</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600..800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="brand">AI Age Checks · Online Safety Act</div>
+      <div>
+        <a href="#overview">Overview</a>
+        <a href="#law">The Law</a>
+        <a href="#how">How It Works</a>
+        <a href="#failures">Failures</a>
+        <a href="#society">Impacts</a>
+        <a href="#alternatives">Alternatives</a>
+        <a href="#sources">Sources</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO / INTRO -->
+    <section class="hero" id="intro">
+      <div>
+        <h1>AI, Age, and the Illusion of Safety</h1>
+        <p>
+          The UK Online Safety Act gives Ofcom power to demand “proportionate” age checks.
+          Platforms lean on AI tools like face estimation, document scans, and behavior modeling to avoid full ID uploads.
+          In the process they build an infrastructure for routine identity checks online.
+        </p>
+        <div class="callout">
+          <span class="icon">⚡</span>
+          <div>
+            <strong>Frame for readers:</strong>
+            How the technology works, where it fails, and what it means for anonymity, governance, and marginalized communities.
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <button class="primary-btn" data-scroll="#law">
+            Start with the law
+            <span class="icon">↓</span>
+          </button>
+          <button class="primary-btn" data-scroll="#how">
+            Jump to the tech
+            <span class="icon">⚙</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK OVERVIEW -->
+    <section id="overview">
+      <div class="section-header">
+        <div class="eyebrow">Quick answers</div>
+        <h2>What is happening, in five bullets</h2>
+        <p class="muted">Use these as a fast primer or slide starter.</p>
+      </div>
+      <div class="flex-grid">
+        <div class="card">
+          <div class="pill">The Act</div>
+          <h3>What is the UK Online Safety Act?</h3>
+          <p>
+            Law that obliges services to reduce exposure to illegal and high risk content.
+            Ofcom can fine and block access. Age assurance sits at the center for “primary priority” content.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">Platform duties</div>
+          <h3>What does it require of platforms?</h3>
+          <p>
+            Platforms must prevent minors from reaching restricted content using proportionate measures,
+            document their risk assessments, and show workable enforcement to Ofcom.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">Implementation</div>
+          <h3>How are platforms using AI?</h3>
+          <p>
+            Face based age estimation, ID plus selfie flows with liveness checks,
+            behavioral pattern models, and device or network signals combined into risk scores.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">Failures</div>
+          <h3>Where are systems failing?</h3>
+          <p>
+            Bias for darker skin and trans users, higher error near age thresholds,
+            privacy risks from biometric capture, and spoofing workarounds with false positives and false negatives.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">Implications</div>
+          <h3>Broader societal impacts?</h3>
+          <p>
+            Normalizes biometric checkpoints, erodes anonymity, outsources regulation to platforms,
+            and adds extra friction for marginalized and undocumented people.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE LAW -->
+    <section id="law">
+      <div class="section-header">
+        <div class="eyebrow">Policy backdrop</div>
+        <h2>What the Online Safety Act expects</h2>
+        <p class="muted">
+          The Act is framed as a duty of care.
+          Ofcom can require platforms to stop minors from reaching “primary priority content”.
+          Age checks must be proportionate, but vendors are selling AI shortcuts that come with their own risks.
+        </p>
+      </div>
+      <div class="flex-grid">
+        <div class="card">
+          <div class="pill">The requirement</div>
+          <h3>Age assurance on demand</h3>
+          <p>
+            Sites must show that they take appropriate measures to keep minors out of restricted areas.
+            Enforcement can escalate to fines and access blocking if they cannot demonstrate this.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">Regulator</div>
+          <h3>Ofcom's leverage</h3>
+          <p>
+            The provisional notice to 4chan shows that Ofcom intends to test its powers,
+            using specific cases to signal how it will treat illegal and harmful content duties.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">Scope creep</div>
+          <h3>Beyond pornography</h3>
+          <p>
+            Pornography was the early focus, but music videos, livestreams, and “borderline” social spaces sit in scope
+            as risk categories expand. Age checks move from adult sites into everyday browsing.
+          </p>
+        </div>
+      </div>
+      <ul class="timeline">
+        <li><span>2023</span> Online Safety Act passes; high risk content flagged for stronger age assurance and safety duties.</li>
+        <li><span>2024</span> Ofcom consultation and provisional notice to 4chan testing enforcement against illegal and harmful content.</li>
+        <li><span>2025</span> Industry pilots AI based age assurance to avoid full ID uploads, while mainstream platforms prepare their own policies.</li>
+      </ul>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how">
+      <div class="section-header">
+        <div class="eyebrow">Mechanisms</div>
+        <h2>How AI based age detection works</h2>
+        <p class="muted">
+          Systems blend multiple signals.
+          Each signal trades convenience against accuracy, privacy, and fairness.
+          Together they create a gate that can feel simple for users but complex behind the scenes.
+        </p>
+      </div>
+      <div class="flex-grid">
+        <div class="card">
+          <div class="pill">Face estimation</div>
+          <h3>Facial analysis</h3>
+          <p>
+            Neural networks predict age from selfies or live video.
+            Performance drops for darker skin tones, trans users, and teens near 18.
+            Lighting and camera quality matter in ways that rarely show up in glossy demos.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">ID + liveness</div>
+          <h3>Document verification</h3>
+          <p>
+            OCR reads passports or IDs, face match compares an ID photo to a live selfie,
+            and liveness checks try to resist replays. Sensitive data flows through even when vendors say “verification only”.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">Behavioral</div>
+          <h3>Pattern analysis</h3>
+          <p>
+            Models infer age from typing cadence, scroll speed, payment history, or playtime.
+            This logic is opaque and risks false blocks for neurodivergent users or anyone with unusual usage patterns.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">Device signals</div>
+          <h3>Network and device</h3>
+          <p>
+            SIM checks, carrier age flags, device fingerprints, and account histories.
+            Cross platform tracking risk grows as these signals are combined into unified profiles.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">Risk score</div>
+          <h3>Hybrid decisions</h3>
+          <p>
+            Vendors output confidence scores that prompt platforms to allow, ask for more proof, or block.
+            Thresholds encode policy choices and shift who bears friction and error.
+          </p>
+        </div>
+      </div>
+
+      <div class="card flow">
+        <div class="pill">Document pipeline</div>
+        <h3>Step by step flow (for diagrams)</h3>
+        <ol>
+          <li>Upload ID such as a passport or driver license.</li>
+          <li>OCR extracts the birth date and checks document structure and validity.</li>
+          <li>Face match compares the ID photo to a live selfie from the user.</li>
+          <li>Liveness checks look for signs of printed photos or replayed video.</li>
+          <li>Decision returned: access granted, denied, or escalated for review.</li>
+        </ol>
+        <p class="muted">
+          Paper 2 describes this end to end identity pipeline.
+          Paper 5 covers age estimation models, datasets, and evaluation metrics.
+        </p>
+
+        <details class="tech-toggle">
+          <summary>
+            <span class="summary-icon">+</span>
+            Technical sketch of facial age estimation
+          </summary>
+          <div class="tech-body">
+            <ol>
+              <li>Face detection and alignment crop and normalize faces for pose and scale.</li>
+              <li>Convolutional or transformer based networks extract feature embeddings from the aligned face.</li>
+              <li>A regression or classification head maps those embeddings to an age value or age bracket.</li>
+              <li>Systems apply thresholds such as “accept if over 23 with 95 percent confidence”.</li>
+              <li>Bias creeps in through training data and architecture choices, which rarely match the full population being judged.</li>
+            </ol>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- FAILURES -->
+    <section id="failures">
+      <div class="section-header">
+        <div class="eyebrow">Performance and harm</div>
+        <h2>Where the systems succeed, and where they fail</h2>
+      </div>
+      <div class="columns">
+        <div class="card">
+          <div class="pill">Succeeding (narrowly)</div>
+          <ul class="list">
+            <li>Simple over or under checks can work when faces resemble training data and conditions are ideal.</li>
+            <li>Document plus liveness flows reduce casual spoofing compared to “I am 18” click through boxes.</li>
+            <li>Hybrid signals can flag reused IDs or obvious bot driven attempts in mass traffic.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Failing (more often)</div>
+          <ul class="list">
+            <li>
+              Bias: higher error for Black and Brown faces, trans users, elders, and teens near 18,
+              as shown in work on human and AI age perception (Paper 4).
+            </li>
+            <li>
+              Privacy: biometric data is collected; vendors may retain images for model improvement
+              even when they market a pure “verification only” service.
+            </li>
+            <li>Workarounds: VPNs, borrowed devices, and spoofed selfies still slip through, while false positives lock out legitimate adults.</li>
+            <li>Opaque accountability: proprietary models resist independent audits and errors are hard to contest.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="case-grid">
+        <article class="case-card">
+          <div class="case-chip">Misclassification</div>
+          <div class="case-title">Adult flagged as a child</div>
+          <div class="case-impact">
+            An 18 year old with a younger appearance is repeatedly blocked from platforms.
+            They are pushed into ID verification that may require parental documents
+            or locked out if they lack access to official ID.
+          </div>
+          <div class="case-badge">Bias</div>
+        </article>
+        <article class="case-card">
+          <div class="case-chip">Over reach</div>
+          <div class="case-title">Mandatory ID in unsafe homes</div>
+          <div class="case-impact">
+            Young people in abusive or queerphobic households can only access support forums by using a parent ID.
+            Safety tools end up removing their last private channels instead of protecting them.
+          </div>
+          <div class="case-badge">Harm</div>
+        </article>
+        <article class="case-card">
+          <div class="case-chip">Data spill</div>
+          <div class="case-title">Leaked biometric archive</div>
+          <div class="case-impact">
+            Years of face scans and ID images are exposed in a breach.
+            Attackers gain both birth dates and reusable face prints that can be repurposed in other systems.
+          </div>
+          <div class="case-badge">Risk</div>
+        </article>
+      </div>
+
+      <div class="callout" style="margin-top:16px;">
+        <span class="icon">📉</span>
+        <div>
+          <strong>Systemic risk:</strong>
+          A one percent lab error rate turns into tens of thousands of wrong decisions at platform scale,
+          and those mistakes fall hardest on people who already face discrimination and over policing.
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIETAL LAYER -->
+    <section id="society">
+      <div class="section-header">
+        <div class="eyebrow">Societal layer</div>
+        <h2>Implications beyond the login screen</h2>
+        <p class="muted">
+          Age checks do more than gate adult content.
+          They reshape norms around identity, speech, and who gets to participate online without being logged and scored.
+        </p>
+      </div>
+      <div class="flex-grid">
+        <div class="card">
+          <div class="pill">Responsibilization</div>
+          <h3>Outsourced enforcement</h3>
+          <p>
+            Governments push platforms to police users.
+            Vendors sell compliance scores that move risk downstream.
+            Jarvie and Renaud describe this shift as responsibilization,
+            where technical checks stand in for broader social commitments to children.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">Surveillance creep</div>
+          <h3>Normalization of biometrics</h3>
+          <p>
+            Once face scans and ID checks feel routine at sign in,
+            it becomes easier to extend them into workplaces, schools, travel, and public spaces,
+            especially if data is retained and cross matched.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">Anonymity loss</div>
+          <h3>Identity demanded by default</h3>
+          <p>
+            Mandatory verification erodes pseudonymity used by activists, queer youth, sex workers, and whistleblowers.
+            Speech becomes tied to risk scores and logs that can be accessed later.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">Marginalized impacts</div>
+          <h3>Uneven friction</h3>
+          <p>
+            Undocumented people, migrants, unhoused users, and those with non conforming gender presentation face higher denial rates,
+            more intrusive checks, and greater exposure when they try to participate online.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:16px;">
+        <span class="icon">❖</span>
+        <div>
+          <strong>Children's rights framing:</strong>
+          UNICEF and child rights groups stress that children have rights to participation, privacy, and information,
+          not just a right to protection.
+          Systems that see them only as potential victims risk erasing their agency and voice.
+        </div>
+      </div>
+    </section>
+
+    <!-- ALTERNATIVES -->
+    <section id="alternatives">
+      <div class="section-header">
+        <div class="eyebrow">Pathways</div>
+        <h2>Alternatives and safeguards</h2>
+      </div>
+      <div class="columns">
+        <div class="card">
+          <div class="pill">Proportionate design</div>
+          <ul class="list">
+            <li>Age range credentials that only reveal “over 18” without storing full ID data on every platform.</li>
+            <li>On device inference where possible, with biometric captures deleted immediately after a decision.</li>
+            <li>Independent audits and public reporting of false accept and false reject rates.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Human centered</div>
+          <ul class="list">
+            <li>Digital literacy and voluntary education instead of making surveillance the default safety tool.</li>
+            <li>Appeal paths for false positives, including human review for edge cases and vulnerable users.</li>
+            <li>Spaces that explicitly avoid compelled ID, especially for support communities and sensitive speech.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Policy realism</div>
+          <ul class="list">
+            <li>Recognize limits: AI age checks can reduce exposure but will never fully stop determined access.</li>
+            <li>Prevent scope drift by confining mandatory checks to clearly high risk categories.</li>
+            <li>Require clear deletion windows, bans on secondary use, and strict limits on law enforcement access.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOURCES -->
+    <section id="sources">
+      <div class="section-header">
+        <div class="eyebrow">References</div>
+        <h2>Peer reviewed anchors (with quick uses)</h2>
+      </div>
+      <div class="sources">
+        <div class="source">
+          <h3>Mandatory age verification for pornography access: Why it cannot and will not “save the children”.</h3>
+          <p class="muted">
+            Policy and ethics critique; great for failures and societal harm.
+            Shows the false promise of tech mandates that focus on porn platforms without tackling underlying issues.
+            <a class="inline" href="https://doi.org/10.1177/20539517241252129" target="_blank" rel="noreferrer">Link</a>
+          </p>
+        </div>
+        <div class="source">
+          <h3>Revolutionizing Identity Verification: AI Driven Digital Identity Solutions for a Secure and Seamless Future.</h3>
+          <p class="muted">
+            Technical pipeline for document and biometric verification; ties to OpenID and “age over” credentials.
+            Use for the “how it works” section and diagram.
+            <a class="inline" href="https://doi.org/10.32628/cseit251112301" target="_blank" rel="noreferrer">Link</a>
+          </p>
+        </div>
+        <div class="source">
+          <h3>Online Age Verification: Government Legislation, Supplier Responsibilization, and Public Perceptions.</h3>
+          <p class="muted">
+            Governance and public trust; explains responsibilization and skepticism toward age checks.
+            Helpful for the policy and societal layers.
+            <a class="inline" href="https://doi.org/10.3390/children11091068" target="_blank" rel="noreferrer">Link</a>
+          </p>
+        </div>
+        <div class="source">
+          <h3>Biases in human perception of facial age are present and more exaggerated in current AI technology.</h3>
+          <p class="muted">
+            Empirical bias evidence for facial age estimation; supports claims about differential error rates.
+            Use in the failures section and in any slide on fairness.
+            <a class="inline" href="https://doi.org/10.1038/s41598-022-27009-w" target="_blank" rel="noreferrer">Link</a>
+          </p>
+        </div>
+        <div class="source">
+          <h3>Facial Age Estimation Using Machine Learning Techniques: An Overview.</h3>
+          <p class="muted">
+            Engineering overview of face age models, datasets, and metrics.
+            Provides the backbone for the “how AI works” content.
+            <a class="inline" href="https://doi.org/10.3390/bdcc6040128" target="_blank" rel="noreferrer">Link</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-top: 24px;">
+        <div class="eyebrow">Optional sources</div>
+        <h2>Reporting and enforcement examples</h2>
+      </div>
+      <div class="sources">
+        <div class="source">
+          <h3>Ofcom provisional notice to 4chan</h3>
+          <p class="muted">
+            Illustrates early enforcement under the Online Safety Act and how Ofcom frames duties.
+            Good for grounding abstract discussion in a concrete case.
+            <a class="inline" href="https://www.ofcom.org.uk/online-safety/illegal-and-harmful-content/investigation-into-4chan-and-its-compliance-with-duties-to-protect-its-users-from-illegal-content" target="_blank" rel="noreferrer">Link</a>
+          </p>
+        </div>
+        <div class="source">
+          <h3>4chan response and coverage</h3>
+          <p class="muted">
+            Platform pushback on proportionality and feasibility.
+            Shows how regulated communities contest the “duties” defined by regulators.
+            <a class="inline" href="https://www.thinkbroadband.com/news/ofcom-issues-4chan-a-provisional-notice-under-online-safety-act" target="_blank" rel="noreferrer">Link</a>
+          </p>
+        </div>
+        <div class="source">
+          <h3>Scientific American, UNICEF, and global examples</h3>
+          <p class="muted">
+            Use for quotes on privacy and child rights framing, plus global policy drift:
+            <a class="inline" href="https://www.scientificamerican.com/article/online-age-verification-laws-privacy/" target="_blank" rel="noreferrer">SciAm</a>,
+            <a class="inline" href="https://www.unicef.org/press-releases/done-right-internet-use-among-children-can-increase-learning-opportunities-and-build" target="_blank" rel="noreferrer">UNICEF</a>,
+            <a class="inline" href="https://www.dallasobserver.com/news/new-texas-age-verification-for-apps-begins-in-january-40608748/" target="_blank" rel="noreferrer">Texas</a>,
+            <a class="inline" href="https://go.exlibris.link/43JXLrY2" target="_blank" rel="noreferrer">Italy</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Built as an unessay on AI driven age verification and the UK Online Safety Act.
+  </footer>
+
+  <button id="backToTop">
+    <span class="icon">↑</span>
+    Top
+  </button>
+
+  <script>
+    // Smooth scroll helper
+    function smoothScrollTo(targetId) {
+      var el = document.querySelector(targetId);
+      if (!el) return;
+      var offset = 80;
+      var y = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({
+        top: y,
+        behavior: "smooth"
+      });
+    }
+
+    // Nav links and hero buttons
+    document.querySelectorAll('a[href^="#"], .primary-btn[data-scroll]').forEach(function (el) {
+      el.addEventListener("click", function (e) {
+        var target = el.getAttribute("href") || el.getAttribute("data-scroll");
+        if (target && target.startsWith("#")) {
+          e.preventDefault();
+          smoothScrollTo(target);
+        }
+      });
+    });
+
+    // Active nav highlight on scroll
+    var sections = Array.from(document.querySelectorAll("main section"));
+    var navLinks = Array.from(document.querySelectorAll("nav a[href^='#']"));
+
+    function updateActiveNav() {
+      var scrollPos = window.scrollY;
+      var currentId = "intro";
+      sections.forEach(function (sec) {
+        var top = sec.offsetTop - 120;
+        if (scrollPos >= top) {
+          currentId = sec.id;
+        }
+      });
+      navLinks.forEach(function (link) {
+        var href = link.getAttribute("href").slice(1);
+        if (href === currentId) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
+    }
+
+    window.addEventListener("scroll", updateActiveNav);
+    window.addEventListener("load", updateActiveNav);
+
+    // Back to top button
+    var backToTop = document.getElementById("backToTop");
+    window.addEventListener("scroll", function () {
+      if (window.scrollY > 260) {
+        backToTop.style.display = "flex";
+      } else {
+        backToTop.style.display = "none";
+      }
+    });
+    backToTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>

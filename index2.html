@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI, Age, and the Illusion of Safety</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      color-scheme: dark light;
+      --bg: #060814;
+      --bg-alt: #0f1220;
+      --card: #141827;
+      --accent: #ffb84d;
+      --accent-soft: rgba(255, 184, 77, 0.12);
+      --text: #f5f5f7;
+      --muted: #b0b3c6;
+      --border: #2c3147;
+      --danger: #ff6b81;
+      --good: #5bd982;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --max-width: 960px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #23284a 0, #060814 48%, #020308 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 16px 20px 48px;
+    }
+
+    header {
+      position: relative;
+      padding: 48px 0 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(6, 8, 20, 0.9);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(255, 184, 77, 0.25);
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 4vw, 3rem);
+      margin: 18px 0 8px;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      max-width: 620px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(10, 12, 28, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag-pill {
+      font-size: 10px;
+      padding: 4px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .primary-btn {
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #ffb84d, #ff8f5a);
+      color: #1b1207;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .primary-btn span {
+      font-size: 18px;
+      transform: translateY(1px);
+    }
+
+    .secondary-link {
+      font-size: 13px;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .secondary-link span {
+      font-size: 16px;
+      transform: translateY(1px);
+    }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding: 8px 0 14px;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(6, 8, 20, 0.96), rgba(6, 8, 20, 0.78), transparent);
+      margin-bottom: 8px;
+    }
+
+    .nav-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .nav-link {
+      padding: 6px 11px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      color: var(--muted);
+      cursor: pointer;
+      background: transparent;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .nav-link.active {
+      background: var(--accent-soft);
+      border-color: rgba(255, 184, 77, 0.6);
+      color: var(--accent);
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 4px;
+    }
+
+    section {
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(20, 24, 39, 0.96), rgba(9, 11, 22, 0.98));
+      padding: 18px 18px 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+    }
+
+    section:not(:last-child) {
+      scroll-margin-top: 84px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    h2 {
+      margin: 0 0 6px;
+      font-size: 1.3rem;
+    }
+
+    .section-intro {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 780px) {
+      .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .pill {
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(4, 6, 16, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .pill-dot.red {
+      background: var(--danger);
+    }
+
+    .pill-dot.green {
+      background: var(--good);
+    }
+
+    .pill-dot.blue {
+      background: #7ac4ff;
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    .list li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+    }
+
+    .list li::before {
+      content: "•";
+      position: absolute;
+      left: 3px;
+      top: 0;
+      color: var(--accent);
+    }
+
+    .side-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at top left, rgba(255, 184, 77, 0.12), rgba(10, 12, 24, 0.96));
+      padding: 10px 12px 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .side-card h3 {
+      font-size: 13px;
+      margin: 0 0 4px;
+      color: var(--text);
+    }
+
+    .stat-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+    }
+
+    .stat-value {
+      font-weight: 600;
+    }
+
+    .timeline {
+      border-left: 1px solid var(--border);
+      padding-left: 10px;
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .timeline-item + .timeline-item {
+      margin-top: 6px;
+    }
+
+    .timeline-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+    }
+
+    .timeline-strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    details.tech-toggle {
+      border-radius: 12px;
+      border: 1px dashed rgba(255, 255, 255, 0.18);
+      background: rgba(10, 12, 24, 0.9);
+      padding: 8px 10px;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    details.tech-toggle[open] {
+      border-style: solid;
+      border-color: rgba(255, 184, 77, 0.55);
+      background: radial-gradient(circle at top, rgba(255, 184, 77, 0.15), rgba(10, 12, 24, 0.9));
+    }
+
+    details.tech-toggle summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+    }
+
+    details.tech-toggle summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 184, 77, 0.6);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+
+    .tech-body {
+      margin-top: 6px;
+      color: var(--muted);
+    }
+
+    .tech-body ol {
+      margin: 4px 0 0 18px;
+      padding: 0;
+      font-size: 13px;
+    }
+
+    .tech-body ol li {
+      margin-bottom: 4px;
+    }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .case-card {
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(8, 10, 22, 0.95);
+      padding: 8px 10px 10px;
+      font-size: 12px;
+      position: relative;
+    }
+
+    .case-chip {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .case-title {
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .case-impact {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .case-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 184, 77, 0.1);
+      border: 1px solid rgba(255, 184, 77, 0.6);
+      color: var(--accent);
+    }
+
+    .callout {
+      font-size: 13px;
+      color: var(--muted);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 10px;
+      background: rgba(6, 8, 18, 0.96);
+      margin-top: 8px;
+    }
+
+    .callout strong {
+      color: var(--text);
+    }
+
+    .quote {
+      border-left: 3px solid rgba(255, 184, 77, 0.7);
+      padding-left: 10px;
+      margin: 8px 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .quote small {
+      display: block;
+      margin-top: 3px;
+      font-size: 11px;
+      color: rgba(176, 179, 198, 0.8);
+    }
+
+    .columns {
+      columns: 2;
+      column-gap: 20px;
+    }
+
+    @media (max-width: 780px) {
+      .columns {
+        columns: 1;
+      }
+    }
+
+    .ref-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .ref-list li {
+      margin-bottom: 7px;
+      break-inside: avoid-column;
+    }
+
+    footer {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    #backToTop {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 30;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(6, 8, 20, 0.94);
+      color: var(--muted);
+      padding: 6px 11px;
+      font-size: 11px;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      backdrop-filter: blur(14px);
+    }
+
+    #backToTop span.icon {
+      font-size: 14px;
+      transform: translateY(1px);
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      <span>Unessay · Online Safety Act (UK)</span>
+    </div>
+    <h1>AI, Age, and the Illusion of Safety</h1>
+    <p class="subtitle">
+      The UK Online Safety Act is building a new infrastructure for age checks online,
+      driven by artificial intelligence and powered by personal data. It is sold as a way to protect children.
+      It is also reshaping what it means to be anonymous on the internet.
+    </p>
+
+    <div class="tag-row">
+      <span class="tag">
+        <span class="pill-dot blue"></span>
+        AI age estimation
+      </span>
+      <span class="tag">
+        <span class="pill-dot red"></span>
+        Online Safety Act (UK)
+      </span>
+      <span class="tag">
+        <span class="pill-dot"></span>
+        Porn filters, platform duties, future creep
+      </span>
+      <span class="tag-pill">STS · Policy · Ethics</span>
+    </div>
+
+    <div class="hero-actions">
+      <button class="primary-btn" data-scroll="#law">
+        Start with the law
+        <span>↓</span>
+      </button>
+      <button class="primary-btn" data-scroll="#tech">
+        Or jump to the tech
+        <span>⚙︎</span>
+      </button>
+      <a href="#references" class="secondary-link">
+        Skip to sources
+        <span>↧</span>
+      </a>
+    </div>
+  </header>
+
+  <nav class="top-nav">
+    <div class="nav-inner">
+      <button class="nav-link active" data-scroll="#intro">Intro</button>
+      <button class="nav-link" data-scroll="#law">The Law</button>
+      <button class="nav-link" data-scroll="#tech">How it works</button>
+      <button class="nav-link" data-scroll="#failures">Where it fails</button>
+      <button class="nav-link" data-scroll="#society">Societal layer</button>
+      <button class="nav-link" data-scroll="#alternatives">Alternatives</button>
+      <button class="nav-link" data-scroll="#references">Works cited</button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- 1. INTRO -->
+    <section id="intro">
+      <div class="section-label">01 · Landing</div>
+      <h2>From porn filters to a new model of the internet</h2>
+      <p class="section-intro">
+        The public story about AI age checks is simple. Children should not stumble into violent or sexual content.
+        Platforms need to keep them out. AI will decide who is old enough.
+        Once you zoom in, the picture gets stranger and much more political.
+      </p>
+
+      <div class="grid-2">
+        <div>
+          <ul class="list">
+            <li>
+              <strong>On paper</strong> the UK Online Safety Act tells platforms to “protect children” from harmful content,
+              starting with high risk sites such as pornography platforms.
+            </li>
+            <li>
+              <strong>In practice</strong> it pushes websites to adopt AI based age assurance:
+              facial age estimation, document scans, and behavioral profiling that sit between users and the content.
+            </li>
+            <li>
+              These tools do not just block videos.
+              They create risk scoring systems that sit on servers, remember faces, and quietly decide who counts as a child.
+            </li>
+          </ul>
+
+          <div class="callout">
+            <strong>Guiding question for this project</strong><br>
+            What happens when a law that starts with porn filters becomes the template for identity checks across
+            streaming platforms, social media, and everyday browsing?
+          </div>
+        </div>
+
+        <aside class="side-card">
+          <h3>Map of the page</h3>
+          <div class="stat-row">
+            <div class="stat">
+              <span class="stat-label">Policy</span>
+              <span class="stat-value">Online Safety Act, Ofcom, 4chan</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Technology</span>
+              <span class="stat-value">Face AI · ID scans · “Age over” proofs</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Society</span>
+              <span class="stat-value">Surveillance, trust, and who gets harmed</span>
+            </div>
+          </div>
+          <p style="margin-top:8px;font-size:11px;">
+            This site is meant as a visual synthesis of my research,
+            not a neutral explainer or a policy proposal. It sits between technical documentation and a critical essay.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 2. LAW AND GOALS -->
+    <section id="law">
+      <div class="section-label">02 · The law and its goals</div>
+      <h2>The Online Safety Act and the expanding “duty of care”</h2>
+      <p class="section-intro">
+        The Online Safety Act tries to translate a moral claim
+        “platforms should not harm children”
+        into a technical checklist enforced by Ofcom.
+        Age checks become the practical way to prove that a site has done its duty.
+      </p>
+
+      <div class="grid-2">
+        <div>
+          <div class="pill-row">
+            <span class="pill">
+              <span class="pill-dot"></span>
+              Core aim: reduce children’s exposure to illegal and “harmful but legal” content
+            </span>
+            <span class="pill">
+              <span class="pill-dot blue"></span>
+              Strategy: force platforms to assess risk and show evidence of mitigation
+            </span>
+          </div>
+          <ul class="list">
+            <li>
+              Adult sites are expected to “use proportionate systems” such as robust age verification,
+              not just a checkbox that says “I am over 18.”
+            </li>
+            <li>
+              Over time the same framework reaches social networks,
+              video platforms like YouTube, and even forums that might host extremist content.
+            </li>
+            <li>
+              Ofcom can fine or restrict services that fail to show compliance,
+              as in its provisional notice against 4chan for hosting illegal content without adequate protections.
+            </li>
+          </ul>
+
+          <p class="callout">
+            In policy language this looks like a neutral “safety duty.”
+            In practice it builds pressure to install AI gatekeepers that watch people as they browse.
+          </p>
+        </div>
+
+        <aside class="side-card">
+          <h3>From porn filter to template</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-label">Step 1</div>
+              <div>
+                <span class="timeline-strong">Porn sites</span> framed as primary risk,
+                legitimizing stronger checks for “obviously adult” content.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-label">Step 2</div>
+              <div>
+                <span class="timeline-strong">High risk platforms</span> more broadly,
+                including forums and video sites with user uploads.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-label">Step 3</div>
+              <div>
+                <span class="timeline-strong">Everyday services</span> feel pressure to adopt “standard” age tools,
+                even when the risk is low, because liability now lives with them.
+              </div>
+            </div>
+          </div>
+
+          <p style="margin-top:8px;font-size:11px;">
+            Jarvie and Renaud describe this as
+            <em>responsibilization</em>
+            a shift where states set expectations
+            and companies must invent technical compliance tools.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 3. HOW AI AGE VERIFICATION WORKS -->
+    <section id="tech">
+      <div class="section-label">03 · The technology</div>
+      <h2>How AI tries to guess your age</h2>
+      <p class="section-intro">
+        There is no single “age verification” machine.
+        Instead there is a stack of techniques that estimate or verify age:
+        facial age estimation, document scanning, and behavioral profiling layered together.
+      </p>
+
+      <div class="grid-2">
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Facial age estimation</h3>
+          <ul class="pill-row">
+            <li class="pill">
+              <span class="pill-dot green"></span>
+              Fast and friction light for users
+            </li>
+            <li class="pill">
+              <span class="pill-dot red"></span>
+              Built on face data and sensitive biometrics
+            </li>
+          </ul>
+          <ul class="list">
+            <li>
+              A camera grabs a face image and feeds it into a neural network trained on millions of faces with labeled ages.
+            </li>
+            <li>
+              The model outputs a predicted age or an “over 18 / under 18” decision for the platform to act on.
+            </li>
+            <li>
+              Work in facial age estimation surveys shows how much this pipeline depends on dataset composition,
+              preprocessing choices, and model architecture.
+            </li>
+          </ul>
+
+          <details class="tech-toggle">
+            <summary>
+              <span class="summary-icon">+</span>
+              Technical sketch
+            </summary>
+            <div class="tech-body">
+              <ol>
+                <li>Face detection and alignment crop the face and normalize pose.</li>
+                <li>Feature extraction with CNNs or transformers produces a high dimensional embedding.</li>
+                <li>A regression head or classifier maps embeddings to an age value or age bracket.</li>
+                <li>Systems apply thresholds such as “accept if 95 percent sure this user is over 23.”</li>
+                <li>All of this rests on training data, which rarely reflects the full diversity of the population it judges.</li>
+              </ol>
+            </div>
+          </details>
+
+          <h3 style="font-size:1rem;margin:14px 0 4px;">Document verification</h3>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:4px;">
+            Here the system stops guessing and tries to match a user to government ID.
+          </p>
+          <ul class="list">
+            <li>Users upload a photo of a passport or license, plus a selfie.</li>
+            <li>OCR reads the date of birth, while face match and “liveness” checks confirm the document belongs to the person on camera.</li>
+            <li>Back end services turn that into a reusable digital credential such as “age over 18” that other sites can query.</li>
+          </ul>
+        </div>
+
+        <aside class="side-card">
+          <h3>Document pipeline snapshot</h3>
+          <ol style="margin:4px 0 0 18px;font-size:12px;">
+            <li>Upload ID photo or scan.</li>
+            <li>Run OCR on the document and read birth date fields.</li>
+            <li>Compare document photo to live selfie with a face match model.</li>
+            <li>Run liveness checks to catch printed photos or replayed videos.</li>
+            <li>Return a decision such as “verified adult,” often stored as a token for future logins.</li>
+          </ol>
+
+          <div class="callout" style="margin-top:10px;">
+            AI identity papers pitch this as seamless.
+            The friction hides in the infrastructure
+            who stores the ID, who can request the token, and what else is inferred from it.
+          </div>
+
+          <h3 style="font-size:0.96rem;margin:12px 0 4px;">Behavioral and “age over” signals</h3>
+          <ul class="list" style="font-size:12px;margin-top:4px;">
+            <li>Browsing history, spending patterns, and device data can feed into age scoring systems.</li>
+            <li>Privacy preserving “age over” credentials promise to reveal only a fact such as “over 18,” not the exact age.</li>
+            <li>These sound gentle, yet they rely on the same identification infrastructure in the background.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 4. WHERE SYSTEMS FAIL -->
+    <section id="failures">
+      <div class="section-label">04 · Where the systems fail</div>
+      <h2>Safety theater, bias, and data risks</h2>
+      <p class="section-intro">
+        Research on these systems repeatedly shows three problems.
+        They are less accurate for some groups than others.
+        They are easy to route around.
+        They create large stores of sensitive data that can leak, be repurposed, or used to profile people in new ways.
+      </p>
+
+      <div class="grid-2">
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Bias and inaccuracy</h3>
+          <ul class="list">
+            <li>
+              Experiments comparing human age judgments to AI show that systems exaggerate human biases:
+              they misjudge ages differently across gender, expression, and age group,
+              especially for people who do not fit the training dataset.
+            </li>
+            <li>
+              Small errors matter here.
+              A system that systematically underestimates the age of some adults or overestimates the age of some teens
+              will lock the wrong people in and out.
+            </li>
+            <li>
+              Errors are not evenly distributed.
+              Marginalized groups tend to be over policed in digital systems that already treat them as “higher risk.”
+            </li>
+          </ul>
+
+          <h3 style="font-size:1rem;margin:14px 0 4px;">Spoofing, workarounds, and bans that creep</h3>
+          <ul class="list">
+            <li>Users route around checks using VPNs, mirror sites, and alternative platforms such as game mods and private servers.</li>
+            <li>Policy responses talk about restricting VPN use itself, which treats privacy tools as suspicious by default.</li>
+            <li>Teen users who want to avoid surveillance are pushed into harder to trace spaces that may be less safe and less moderated.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Case snapshots · “What could go wrong?”</h3>
+          <div class="case-grid">
+            <article class="case-card">
+              <div class="case-chip">Misclassification</div>
+              <div class="case-title">Adult flagged as child</div>
+              <div class="case-impact">
+                An 18 year old who looks younger is repeatedly blocked from platforms,
+                forced into ID verification that their family controls, or locked out entirely if they lack documents.
+              </div>
+              <div class="case-badge">Bias</div>
+            </article>
+            <article class="case-card">
+              <div class="case-chip">Over reach</div>
+              <div class="case-title">Mandatory ID in unsafe homes</div>
+              <div class="case-impact">
+                Young people in abusive or queerphobic households can only access support forums by using a parent’s ID.
+                “Safety” removes their last private channels.
+              </div>
+              <div class="case-badge">Harm</div>
+            </article>
+            <article class="case-card">
+              <div class="case-chip">Data spill</div>
+              <div class="case-title">Leaked biometric archive</div>
+              <div class="case-impact">
+                Years of face scans and ID images end up exposed through a breach.
+                Viewers gain not just birth dates, but traceable face prints that can be used across other systems.
+              </div>
+              <div class="case-badge">Risk</div>
+            </article>
+          </div>
+
+          <h3 style="font-size:1rem;margin:12px 0 4px;">False promises of protection</h3>
+          <p class="callout">
+            Critical work on porn age checks argues that these systems
+            “cannot and will not save the children.”
+            They mainly create public reassurance, not real reductions in harm,
+            while introducing new forms of surveillance and stigma for sex workers and adult users.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. SOCIETAL LAYER -->
+    <section id="society">
+      <div class="section-label">05 · The societal layer</div>
+      <h2>Who carries the burden, who holds the data, who gets watched</h2>
+      <p class="section-intro">
+        Age verification is not just an engineering problem.
+        It is a governance problem and a social struggle over who gets to define “safety”
+        in a world where data never really goes away.
+      </p>
+
+      <div class="grid-2">
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Responsibilization and platform duty</h3>
+          <ul class="list">
+            <li>
+              Jarvie and Renaud describe how governments shift responsibility for children’s safety onto platforms,
+              which must show that they “did enough” by installing age checks and moderation tools.
+            </li>
+            <li>
+              Platforms then outsource hard judgments to AI systems and third party verification vendors,
+              creating a chain of accountability where each actor points to the next.
+            </li>
+            <li>
+              Users sit at the end of that chain, with little say in how their data is used or how errors are resolved.
+            </li>
+          </ul>
+
+          <h3 style="font-size:1rem;margin:14px 0 4px;">Surveillance creep and the fading of anonymity</h3>
+          <ul class="list">
+            <li>
+              Once AI age checks are normalized for porn and “extreme content,”
+              it becomes easier to argue that they should apply to social media, games, and general browsing.
+            </li>
+            <li>
+              This changes the default expectation of the web from “pseudonymous by default”
+              to “identifiable unless you have a special reason not to be.”
+            </li>
+            <li>
+              People already at risk of over policing
+              such as migrants, sex workers, queer youth, and political dissidents
+              feel that shift first.
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Public trust, disengagement, and lived experience</h3>
+          <p class="quote">
+            Many users express low trust in age verification systems
+            they worry about data collection, targeted advertising, and function creep.
+            <small>Drawn from survey work on public perceptions of online age checks.</small>
+          </p>
+          <ul class="list" style="font-size:13px;margin-top:6px;">
+            <li>People often accept the goal of protecting children but reject the tools once they see how much data is gathered.</li>
+            <li>Some simply opt out of platforms that demand ID, which splits access along lines of documentation and comfort with risk.</li>
+            <li>Others click through, aware that their data is being collected, but feeling they cannot reasonably refuse.</li>
+          </ul>
+
+          <h3 style="font-size:1rem;margin:14px 0 4px;">Children’s rights and agency</h3>
+          <p class="callout">
+            UNICEF and child rights groups stress that children have rights to participation, privacy, and information,
+            not just a right to be protected from harm.
+            Systems that treat young people only as potential victims risk erasing their voice and agency.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. ALTERNATIVES -->
+    <section id="alternatives">
+      <div class="section-label">06 · Beyond AI gatekeeping</div>
+      <h2>What other safety could look like</h2>
+      <p class="section-intro">
+        The choice is not “AI age checks or nothing.”
+        There are other ways to think about online safety that work with young people instead of just sorting them.
+      </p>
+
+      <div class="grid-2">
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Human centered alternatives</h3>
+          <ul class="list">
+            <li>
+              Invest in digital literacy and media education so that children can navigate risky spaces with support,
+              instead of treating them as passive targets.
+            </li>
+            <li>
+              Design platform level tools that let users fine tune what they see and report,
+              with strong protections against harassment and targeted abuse.
+            </li>
+            <li>
+              Support independent, privacy friendly moderation infrastructures
+              rather than concentrating power in a few large identity vendors.
+            </li>
+          </ul>
+
+          <h3 style="font-size:1rem;margin:14px 0 4px;">When limited age checks might help</h3>
+          <ul class="list">
+            <li>Context specific, opt in age gates for high risk interactions such as payments or direct messaging.</li>
+            <li>“Age over” credentials that avoid storing raw ID documents on every platform.</li>
+            <li>Strict legal limits on data retention, reuse, and law enforcement access to verification logs.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">STS lens · power, trade offs, negotiation</h3>
+          <p class="callout">
+            Seen through science and technology studies, age verification is not a neutral technical fix.
+            It is a way of negotiating power among states, companies, parents, and young people,
+            with AI systems standing in for human judgment.
+          </p>
+          <ul class="list" style="font-size:13px;">
+            <li>
+              Who designs the system and whose values are encoded in the thresholds and risk scores.
+            </li>
+            <li>
+              Who can challenge decisions, appeal bans, or demand that their biometric data be deleted.
+            </li>
+            <li>
+              How we balance short term safety goals with long term impacts on privacy, autonomy, and democratic participation.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. REFERENCES -->
+    <section id="references">
+      <div class="section-label">07 · Evidence and further reading</div>
+      <h2>Works cited</h2>
+      <p class="section-intro">
+        These are the core peer reviewed sources that shaped this project,
+        along with some policy and commentary pieces that show how the debate is unfolding in practice.
+      </p>
+
+      <div class="columns">
+        <ul class="ref-list">
+          <li>
+            Elkarazle, Khaled, et al.
+            “Facial Age Estimation Using Machine Learning Techniques: An Overview.”
+            <em>Big Data and Cognitive Computing</em>, vol. 6, no. 4, 2022, p. 128,
+            <a href="https://doi.org/10.3390/bdcc6040128" target="_blank" rel="noreferrer">
+              https://doi.org/10.3390/bdcc6040128
+            </a>.
+          </li>
+          <li>
+            Ganel, Tzvi, et al.
+            “Biases in human perception of facial age are present and more exaggerated in current AI technology.”
+            <em>Scientific Reports</em>, vol. 12, no. 1, 2022, pp. 22519–10,
+            <a href="https://doi.org/10.1038/s41598-022-27009-w" target="_blank" rel="noreferrer">
+              https://doi.org/10.1038/s41598-022-27009-w
+            </a>.
+          </li>
+          <li>
+            Jarvie, Chelsea, and Karen Renaud.
+            “Online Age Verification: Government Legislation, Supplier Responsibilization, and Public Perceptions.”
+            <em>Children (Basel)</em>, vol. 11, no. 9, 2024, p. 1068,
+            <a href="https://doi.org/10.3390/children11091068" target="_blank" rel="noreferrer">
+              https://doi.org/10.3390/children11091068
+            </a>.
+          </li>
+          <li>
+            “Revolutionizing Identity Verification: AI-Driven Digital Identity Solutions for a Secure and Seamless Future.”
+            <em>International Journal of Scientific Research in Computer Science Engineering and Information Technology</em>,
+            <a href="https://doi.org/10.32628/cseit251112301" target="_blank" rel="noreferrer">
+              https://doi.org/10.32628/cseit251112301
+            </a>.
+          </li>
+          <li>
+            Stardust, Zahra, et al.
+            “Mandatory age verification for pornography access: Why it can’t and won’t ‘save the children.’”
+            <em>Big Data &amp; Society</em>, vol. 11, no. 2, 2024,
+            <a href="https://doi.org/10.1177/20539517241252129" target="_blank" rel="noreferrer">
+              https://doi.org/10.1177/20539517241252129
+            </a>.
+          </li>
+          <li>
+            Ofcom, “Investigation into 4chan and its compliance with duties to protect its users from illegal content.”
+            Available from Ofcom’s Online Safety pages.
+          </li>
+          <li>
+            4chan, “Response to Ofcom provisional notice under the Online Safety Act.”
+          </li>
+          <li>
+            Scientific American, “Online Age Verification Laws Are a Threat to Privacy.”
+          </li>
+          <li>
+            UNICEF, statements on children’s rights and online participation.
+          </li>
+          <li>
+            Coverage of US and EU age verification laws, including Texas app requirements and Italian regulators on age checks.
+          </li>
+        </ul>
+      </div>
+
+      <footer>
+        Built as an unessay project on AI driven age verification and the UK Online Safety Act.
+      </footer>
+    </section>
+  </main>
+</div>
+
+<button id="backToTop">
+  <span class="icon">↑</span>
+  Top
+</button>
+
+<script>
+  // Smooth scroll for nav and hero buttons
+  function smoothScrollTo(target) {
+    var el = document.querySelector(target);
+    if (!el) return;
+    var y = el.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({
+      top: y,
+      behavior: "smooth"
+    });
+  }
+
+  document.querySelectorAll("[data-scroll]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var target = btn.getAttribute("data-scroll");
+      smoothScrollTo(target);
+    });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      var target = link.getAttribute("href");
+      if (target.length > 1) {
+        e.preventDefault();
+        smoothScrollTo(target);
+      }
+    });
+  });
+
+  // Active nav highlight on scroll
+  var sections = Array.from(document.querySelectorAll("main section"));
+  var navLinks = Array.from(document.querySelectorAll(".nav-link"));
+
+  function updateActiveNav() {
+    var scrollPos = window.scrollY;
+    var currentId = "intro";
+
+    sections.forEach(function (sec) {
+      var offset = sec.offsetTop - 120;
+      if (scrollPos >= offset) {
+        currentId = sec.id;
+      }
+    });
+
+    navLinks.forEach(function (link) {
+      var target = link.getAttribute("data-scroll");
+      if (target === "#" + currentId) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", updateActiveNav);
+  window.addEventListener("load", updateActiveNav);
+
+  // Back to top button
+  var backToTop = document.getElementById("backToTop");
+
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 260) {
+      backToTop.style.display = "flex";
+    } else {
+      backToTop.style.display = "none";
+    }
+  });
+
+  backToTop.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
+</body>
+</html>
